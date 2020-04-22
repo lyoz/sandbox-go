@@ -1,9 +1,12 @@
-MAIN=main
+DIR=
 
-all: $(MAIN)
+all: $(DIR)/main
 
 %: %.go
-	go build $<
+	go build -o $@ $<
 
-run: $(MAIN)
+run: $(DIR)/main
 	./$<
+
+clean:
+	find . -type f -name main -delete

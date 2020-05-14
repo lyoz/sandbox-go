@@ -1,4 +1,4 @@
-DIR=
+DIR=.
 
 all: $(DIR)/main
 

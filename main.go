@@ -1,17 +1,11 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/labstack/echo/v4"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/lyoz/sandbox-go/router"
 )
 
-func index(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, world.")
-}
-
 func main() {
-	e := echo.New()
-	e.GET("/", index)
-	e.Start(":3000")
+	e := router.Init()
+	e.Logger.Fatal(e.Start(":3000"))
 }

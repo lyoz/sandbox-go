@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 
 	"github.com/labstack/echo/v4"
+	"github.com/lyoz/sandbox-go/constant"
 	"github.com/lyoz/sandbox-go/handler"
 )
 
@@ -18,7 +19,7 @@ func Init() *echo.Echo {
 	e.POST("/login", handler.Login)
 
 	config := middleware.JWTConfig{
-		SigningKey: []byte("secret"),
+		SigningKey: []byte(constant.SigningKey),
 	}
 
 	api := e.Group("/api")

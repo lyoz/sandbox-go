@@ -6,6 +6,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
+	"github.com/lyoz/sandbox-go/constant"
 	"github.com/lyoz/sandbox-go/model"
 )
 
@@ -41,7 +42,7 @@ func Login(c echo.Context) error {
 	claims["username"] = user.Username
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
-	t, err := token.SignedString([]byte("secret"))
+	t, err := token.SignedString([]byte(constant.SigningKey))
 	if err != nil {
 		return err
 	}

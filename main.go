@@ -20,7 +20,8 @@ func (tr *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c
 
 func newTemplateRenderer() echo.Renderer {
 	templates := make(map[string]*template.Template)
-	templates["index"] = template.Must(template.ParseFiles("template/base.html", "template/index.html"))
+	templates["hello"] = template.Must(template.ParseFiles("template/base.html", "template/hello.html"))
+	templates["hello_form"] = template.Must(template.ParseFiles("template/base.html", "template/hello_form.html"))
 	return &TemplateRenderer{templates: templates}
 }
 
@@ -28,8 +29,12 @@ func main() {
 	e := echo.New()
 	e.Renderer = newTemplateRenderer()
 
-	e.GET("/", handler.Index)
-	e.GET("/api/hello", handler.Hello)
+	e.GET("/", handler.IndexGet)
+	e.GET("/hello", handler.HelloGet)
+	e.POST("/hello", handler.HelloPost)
+	e.GET("/hello_form", handler.HelloFormGet)
+	e.GET("/api/hello", handler.APIHelloGet)
+	e.POST("/api/hello", handler.APIHelloPost)
 
 	e.Logger.Fatal(e.Start(":3000"))
 }

@@ -7,7 +7,7 @@
 </head>
 
 <body>
-  <form action="/login" method="POST">
+  <form action="" method="POST" id="login-form">
     <div>
       <label>username
         <input type="text" name="username">
@@ -15,6 +15,24 @@
     </div>
     <button>login</button>
   </form>
+  <script type="text/javascript">
+    const loginForm = document.getElementById("login-form")
+    loginForm.addEventListener("submit", async ev => {
+      ev.preventDefault()
+      const formData = new FormData(loginForm)
+      const options = {
+        method: "POST",
+        body: formData,
+      }
+      const res = await fetch("/login", options)
+      if (!res.ok) {
+        alert("failed to login")
+        return
+      }
+      const json = await res.json()
+      localStorage.setItem("token", json.token)
+    })
+  </script>
 </body>
 
 </html>

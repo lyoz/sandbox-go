@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>test</title>
+</head>
+
+<body>
+  <div>
+    <button id="hello-button">hello</button>
+    <span id="hello-label">-</span>
+  </div>
+
+  <script type="text/javascript">
+    const helloButton = document.getElementById("hello-button")
+    const helloLabel = document.getElementById("hello-label")
+    helloButton.addEventListener("click", async ev => {
+      console.log("clicked")
+      const token = localStorage.getItem("token")
+      console.log(`token=${token}`)
+      if (token === null)
+        return
+      const headers = {Authorization: `Bearer ${token}`}
+      const res = await fetch("/api/hello", {headers})
+      helloLabel.innerText = await res.text()
+    })
+  </script>
+</body>
+
+</html>

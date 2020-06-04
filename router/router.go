@@ -18,6 +18,8 @@ func Init() *echo.Echo {
 	e.File("/login", "public/login.html")
 	e.POST("/login", handler.Login)
 
+	e.File("test", "public/test.html")
+
 	config := middleware.JWTConfig{
 		SigningKey: []byte(constant.SigningKey),
 	}

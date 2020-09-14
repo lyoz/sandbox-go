@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/smtp"
+
+	"gopkg.in/gomail.v2"
 )
 
 // username = <access key>
@@ -27,6 +29,22 @@ func sendMail() {
 	}
 }
 
+func sendMail2() {
+	m := gomail.NewMessage()
+
+	m.SetHeader("From", from)
+	m.SetHeader("To", to)
+	m.SetHeader("Subject", "subject test (from smtp by gomail)")
+	m.SetBody("text/plain", "This is the message (from smtp by gomail)")
+
+	d := gomail.NewDialer(host, port, username, password)
+	err := d.DialAndSend(m)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
-	sendMail()
+	// sendMail()
+	sendMail2()
 }
